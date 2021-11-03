@@ -1,0 +1,35 @@
+export default class Difference {
+  constructor(oldOfficer, newOfficer, itemsSelector) {
+    this.oldOfficer = document.querySelector(oldOfficer);
+    this.newOfficer = document.querySelector(newOfficer);
+    this.oldItems = this.oldOfficer.querySelectorAll(itemsSelector);
+    this.newItems = this.newOfficer.querySelectorAll(itemsSelector);
+    this.oldCounter = 0;
+    this.newCounter = 0;
+  }
+
+  bindTriggers(container, items, counter) {
+    container.querySelector('.plus').addEventListener('click', () => {
+      if (counter !== items.length - 2) {
+        items[counter].style.display = 'flex';
+        counter++;
+      } else {
+        items[counter].style.display = 'flex';
+        items[items.length - 1].remove();
+      }
+    });
+  }
+
+  hideItems(items) {
+    items.forEach((item, index, arr) => {
+      if (index !== arr.length - 1) item.style.display = 'none';
+    });
+  }
+
+  init() {
+    this.hideItems(this.oldItems);
+    this.hideItems(this.newItems);
+    this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
+    this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+  }
+}
